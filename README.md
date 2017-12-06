@@ -3,7 +3,7 @@ dind-jenkins-slave
 
 Docker-in-Docker Jenkins Slave
 
-[![Docker Container](http://dockeri.co/image/mbagliojr/dind-jenkins-slave)](https://registry.hub.docker.com/u/mbagliojr/dind-jenkins-slave/)
+[![Docker Container](http://dockeri.co/image/mbagliojr/jenkins-slave)](https://registry.hub.docker.com/u/mbagliojr/jenkins-slave/)
 
 Contains:
 
@@ -29,8 +29,7 @@ Run Docker-in-Docker Jenkins Slave
 To run the Docker-in-Docker Jenkins Slave:
 
 ```
-docker run --privileged --link=jenkins:master -v /var/run/docker.sock:/var/run/docker.sock -d spiddy/dind-jenkins-slave
-```
+docker run -d -v /root/microservices-parent:/microservices-parent -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/bin/docker --name=jenkins-slave -e EXTRA_PARAMS="-master http://{HOST}:{PORT} -disableSslVerification -executors 2" mbagliojr/jenkins-slave:1.0.0```
 
 It will:
 
@@ -66,7 +65,7 @@ In case more parameters are needed to be passed to swarm plugin CLI use **EXTRA_
 Example:
 
 ```
-docker run --privileged --link=jenkins:master -v /var/run/docker.sock:/var/run/docker.sock -e EXTRA_PARAMS="-description 'Jenkins Slave' -executors 2" -d mbagliojr/dind-jenkins-slave:1.0.1
+docker run -d -v /root/microservices-parent:/microservices-parent -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/bin/docker --name=jenkins-slave -e EXTRA_PARAMS="-master http://{HOST}:{PORT} -disableSslVerification -executors 2" mbagliojr/jenkins-slave:1.0.0
 ```
 
 # Run A Jenkins Master + Slave
