@@ -1,0 +1,14 @@
+master:
+  image: jenkins:2.60.3
+  ports:
+    - "8080:8080"
+  volumes:
+    - /opt/jenkins:/var/jenkins_home
+slave:
+  image: mbagliojr/jenkins-slave:1.0.0
+  links:
+    - master:master
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /jenkins
+  privileged: true
